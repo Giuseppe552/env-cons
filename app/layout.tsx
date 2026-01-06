@@ -3,14 +3,6 @@ import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
-/**
- * NOTE:
- * - We keep Geist for now (clean, stable).
- * - We set a robust metadataBase using NEXT_PUBLIC_SITE_URL when provided.
- * - We add icons, referrer policy, and sensible OpenGraph defaults for a single-page consultant site.
- * - We avoid any Tailwind-only body classes.
- */
-
 const geistSans = Geist({
   variable: "--font-sans",
   subsets: ["latin"],
@@ -51,10 +43,19 @@ export const metadata: Metadata = {
     }
   },
   referrer: "strict-origin-when-cross-origin",
+
+  // Explicitly use the favicon in /public/favicon.ico
+  // (Apple touch icon removed to avoid 404 unless you add it.)
   icons: {
-    icon: [{ url: "/favicon.ico" }],
-    apple: [{ url: "/apple-touch-icon.png" }]
+    icon: [
+      { url: "/favicon.ico", type: "image/x-icon" },
+      // Optional explicit sizes; harmless even if ICO contains multiple sizes
+      { url: "/favicon.ico", type: "image/x-icon", sizes: "16x16" },
+      { url: "/favicon.ico", type: "image/x-icon", sizes: "32x32" }
+    ],
+    shortcut: [{ url: "/favicon.ico", type: "image/x-icon" }]
   },
+
   openGraph: {
     type: "website",
     url: "/",

@@ -1,5 +1,4 @@
 /* src/app/globals.css */
-
 /* Semantic classnames, no Tailwind. This stylesheet is the design system. */
 
 :root {
@@ -40,6 +39,10 @@
   /* Ambient background (very subtle) */
   --bg-glow: radial-gradient(1200px 600px at 20% -10%, rgba(0, 0, 0, 0.06), transparent 60%),
     radial-gradient(900px 500px at 100% 0%, rgba(0, 0, 0, 0.04), transparent 55%);
+
+  /* Font alias (layout.tsx sets --font-geist-sans/mono) */
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -87,6 +90,9 @@ body {
   /* Premium feel: subtle ambient gradient */
   background-image: var(--bg-glow);
   background-attachment: fixed;
+
+  /* Stop accidental horizontal overflow on mobile */
+  overflow-x: clip;
 }
 
 img,
@@ -120,6 +126,23 @@ a:hover {
   max-width: var(--container);
   margin: 0 auto;
   padding: 28px 18px;
+  width: 100%;
+}
+
+/* Skip link (a11y) */
+.skipLink {
+  position: absolute;
+  left: -9999px;
+  top: 8px;
+  padding: 10px 12px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: color-mix(in oklab, var(--surface) 86%, transparent);
+  z-index: 9999;
+}
+.skipLink:focus {
+  left: 12px;
+  outline: none;
 }
 
 /* ---------------------------------------------
@@ -129,7 +152,7 @@ a:hover {
 .header {
   position: sticky;
   top: 0;
-  z-index: 20;
+  z-index: 30;
   border-bottom: 1px solid var(--line);
   background: color-mix(in oklab, var(--bg) 86%, transparent);
   backdrop-filter: blur(12px);
@@ -165,7 +188,6 @@ a:hover {
   padding: 4px 2px;
   mask-image: linear-gradient(to right, transparent, black 16px, black calc(100% - 16px), transparent);
 }
-
 .navlinks--scroll::-webkit-scrollbar {
   display: none;
 }
@@ -183,7 +205,6 @@ a:hover {
   height: 2px;
   background: transparent;
 }
-
 .progressBar {
   height: 2px;
   width: 0%;
@@ -320,6 +341,7 @@ a:hover {
   color: var(--muted);
   font-size: 13px;
   line-height: 1.35;
+  max-width: 74ch;
 }
 
 .heroSubline .sep {
@@ -327,7 +349,10 @@ a:hover {
 }
 
 .heroSubline .dot {
-  white-space: nowrap;
+  /* Prevent mobile overflow by default */
+  white-space: normal;
+  overflow-wrap: anywhere;
+  word-break: break-word;
 }
 
 .heroActions {
@@ -395,9 +420,7 @@ a:hover {
   grid-template-columns: 1.18fr 0.82fr;
 }
 
-/* ---- Hero refresh: remove "dashboard" feel ---- */
-
-/* Calmer proof block (replaces metric cards) */
+/* Calmer proof block */
 .proof {
   margin-top: 18px;
   display: grid;
@@ -425,14 +448,14 @@ a:hover {
   line-height: 1.55;
 }
 
-/* Editorial portrait (less “profile widget”) */
+/* Editorial portrait */
 .heroAside {
   display: flex;
   justify-content: flex-end;
 }
 
 .portraitFigure {
-  width: min(380px, 100%);
+  width: min(420px, 100%);
   margin: 0;
 }
 
@@ -492,7 +515,7 @@ a:hover {
   font-size: 14px;
 }
 
-/* Contact helpers */
+/* Contact helpers (generic) */
 .contactRow {
   margin-top: 12px;
   display: flex;
@@ -521,7 +544,6 @@ a:hover {
 }
 
 .card:hover {
-  /* Quieter hover for "premium" */
   border-color: color-mix(in oklab, var(--fg) 14%, var(--line));
   transform: translateY(-1px);
   box-shadow: var(--shadow-sm);
@@ -572,7 +594,213 @@ a:hover {
 }
 
 /* ---------------------------------------------
-   Premium spacing + responsive refinement
+   Contact section (scoped)
+--------------------------------------------- */
+
+.contactStage {
+  margin-top: 14px;
+  max-width: 980px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.contactIntro {
+  text-align: center;
+  max-width: 68ch;
+  margin: 0 auto 14px;
+}
+
+.contactIntroTitle {
+  font-weight: 650;
+  letter-spacing: -0.02em;
+  font-size: 16px;
+}
+
+.contactIntroSub {
+  margin-top: 8px;
+  color: var(--muted);
+  font-size: var(--text-base);
+  line-height: 1.55;
+}
+
+.contactChips {
+  margin-top: 12px;
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.contactChip {
+  border: 1px solid var(--line);
+  background: color-mix(in oklab, var(--surface) 86%, transparent);
+  padding: 8px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.contactGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.contactCard {
+  text-align: left;
+}
+
+.contactCard--cta {
+  border-color: color-mix(in oklab, var(--fg) 18%, var(--line));
+}
+
+.contactCard--soft {
+  background: color-mix(in oklab, var(--surface) 82%, transparent);
+}
+
+.contactCardHead {
+  text-align: center;
+  margin-bottom: 12px;
+}
+
+.contactCardTitle {
+  font-size: 18px;
+  font-weight: 650;
+  letter-spacing: -0.02em;
+}
+
+.contactCardNote {
+  margin-top: 6px;
+  color: var(--muted);
+  font-size: var(--text-sm);
+}
+
+.contactFields {
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+
+.contactField {
+  display: grid;
+  gap: 6px;
+  padding: 12px 0;
+  border-top: 1px solid var(--line);
+  text-decoration: none;
+}
+
+.contactField:first-child {
+  border-top: none;
+}
+
+.contactFieldLabel {
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  font-weight: 650;
+}
+
+.contactFieldValue {
+  font-size: 15px;
+  color: var(--fg);
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+.contactField--link:hover {
+  text-decoration: none;
+}
+
+.contactField--link:hover .contactFieldValue {
+  text-decoration: underline;
+}
+
+.contactActions {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin-top: 14px;
+  flex-wrap: wrap;
+}
+
+.contactFine {
+  margin-top: 12px;
+  text-align: center;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.45;
+}
+
+/* Checklist */
+.contactChecklist {
+  display: grid;
+  gap: 10px;
+  margin-top: 4px;
+}
+
+.contactChecklistItem {
+  display: grid;
+  grid-template-columns: 10px 1fr;
+  gap: 10px;
+  align-items: start;
+  padding: 10px 0;
+  border-top: 1px solid var(--line);
+}
+
+.contactChecklistItem:first-child {
+  border-top: none;
+  padding-top: 0;
+}
+
+.contactChecklistDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  margin-top: 6px;
+  background: color-mix(in oklab, var(--fg) 55%, transparent);
+}
+
+.contactChecklistTitle {
+  font-weight: 650;
+  letter-spacing: -0.01em;
+}
+
+.contactChecklistDesc {
+  margin-top: 4px;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.45;
+}
+
+/* Template */
+.contactTemplate {
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid var(--line);
+}
+
+.contactTemplateLabel {
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  font-weight: 650;
+  text-align: center;
+}
+
+.contactTemplateBox {
+  margin-top: 10px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 12px;
+  background: color-mix(in oklab, var(--surface) 84%, transparent);
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+/* ---------------------------------------------
+   Responsive refinement
 --------------------------------------------- */
 
 @media (max-width: 900px) {
@@ -586,7 +814,16 @@ a:hover {
   }
 
   .heroAside {
-    justify-content: flex-start;
+    justify-content: center;
+  }
+
+  /* Make the portrait feel intentional on mobile */
+  .portraitFigure {
+    width: min(560px, 100%);
+  }
+
+  .proof {
+    max-width: 74ch;
   }
 
   .grid3 {
@@ -595,6 +832,23 @@ a:hover {
 
   .grid2 {
     grid-template-columns: 1fr;
+  }
+
+  .contactGrid {
+    grid-template-columns: 1fr;
+  }
+
+
+  /* Contact section heading: centre title + subtitle on mobile */
+  #contact [data-reveal] {
+    display: flex;
+    justify-content: center;
+  }
+
+  #contact .sectionHead {
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
   }
 }
 
@@ -620,11 +874,22 @@ a:hover {
   .lede {
     font-size: var(--text-base);
   }
+
+  .heroSubline {
+    justify-content: center;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .heroActions {
+    justify-content: center;
+  }
 }
 
 /* ---------------------------------------------
    Respect reduced motion globally
 --------------------------------------------- */
+
 @media (prefers-reduced-motion: reduce) {
   * {
     transition: none !important;
@@ -637,6 +902,8 @@ a:hover {
     transform: none !important;
     filter: none !important;
   }
+
+  
 
   .progressBar {
     transition: none !important;
