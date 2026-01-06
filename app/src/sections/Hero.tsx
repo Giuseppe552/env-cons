@@ -4,13 +4,18 @@
 import Image from "next/image";
 import React, { useState } from "react";
 import Reveal from "@/components/Reveal";
-import Card from "@/components/Card";
 
-function Metric({ value, label }: { value: string; label: string }) {
+function ProofItem({
+  title,
+  detail
+}: {
+  title: string;
+  detail: string;
+}) {
   return (
-    <div className="metric">
-      <div className="metricValue">{value}</div>
-      <div className="metricLabel">{label}</div>
+    <div className="proofItem">
+      <div className="proofTitle">{title}</div>
+      <div className="proofDetail">{detail}</div>
     </div>
   );
 }
@@ -39,7 +44,7 @@ export default function Hero({
       <div className="heroGrid heroGrid--premium">
         <div>
           <Reveal delayMs={70}>
-            <h1 className="h1 h1--premium">Environmental health and safety consulting.</h1>
+            <h1 className="h1 h1--premium">Environmental health & safety consulting.</h1>
           </Reveal>
 
           <Reveal delayMs={120}>
@@ -72,45 +77,45 @@ export default function Hero({
           </Reveal>
 
           <Reveal delayMs={230}>
-            <div className="metrics" aria-label="Key facts">
-              <Metric value="30+ years" label="Workplace safety experience" />
-              <Metric value="20+ years" label="MSc Programme Chair (TU Dublin)" />
-              <Metric value="400+ MSc" label="Taught dissertations supervised" />
-              <Metric value="2 PhD" label="Theses supervised (completed)" />
-              <Metric value="2 PhD" label="Students currently supervised" />
+            <div className="proof" aria-label="Selected proof">
+              <ProofItem
+                title="Programme leadership"
+                detail="Programme Chair for the TU Dublin MSc in Environmental Health & Safety (over 20 years)."
+              />
+              <ProofItem
+                title="Professional experience"
+                detail="Over 30 years of workplace safety experience across public and private sector organisations, including regulatory enforcement roles in London and Dublin."
+              />
+              <ProofItem
+                title="Academic supervision and research"
+                detail="Published in peer reviewed academic journals; supervised over 400 MSc taught dissertations and two PhD theses; currently supervising two PhD students."
+              />
             </div>
-          </Reveal>
-
-          <Reveal delayMs={260}>
-            <Card className="noteCard">
-              <p className="small" style={{ margin: 0 }}>
-                Expertise and research interests include workplace safety inspections, safety auditing, risk assessment, and the implementation and statistical evaluation of safety management systems.
-              </p>
-            </Card>
           </Reveal>
         </div>
 
         {showPortrait ? (
-          <Reveal delayMs={140} className="portraitWrap">
-            <div className="portraitCard portraitCard--clean">
-              <div className="portraitImage portraitImage--premium">
+          <Reveal delayMs={140} className="heroAside">
+            <figure className="portraitFigure" aria-label={`Portrait of ${name}`}>
+              <div className="portraitFrame">
                 <Image
                   src="/victor-hrymak.jpg"
                   alt={`Portrait of ${name}`}
                   fill
                   priority
-                  sizes="(max-width: 900px) 240px, 320px"
+                  sizes="(max-width: 900px) 240px, 360px"
                   style={{ objectFit: "cover" }}
                   onError={() => setShowPortrait(false)}
                 />
               </div>
-              <div className="portraitMeta">
-                <div className="portraitName">{name}</div>
-                <div className="portraitNote">
-                  <a href={`mailto:${email}`}>{email}</a>
-                </div>
-              </div>
-            </div>
+
+              <figcaption className="portraitCaption">
+                <div className="portraitNameLine">{name}</div>
+                <a className="portraitEmail" href={`mailto:${email}`}>
+                  {email}
+                </a>
+              </figcaption>
+            </figure>
           </Reveal>
         ) : null}
       </div>

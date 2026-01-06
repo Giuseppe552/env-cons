@@ -156,6 +156,41 @@ a:hover {
   justify-content: flex-end;
 }
 
+/* Mobile nav: scrollable row + separate CTA */
+.navlinks--scroll {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  flex: 1 1 auto;
+  padding: 4px 2px;
+  mask-image: linear-gradient(to right, transparent, black 16px, black calc(100% - 16px), transparent);
+}
+
+.navlinks--scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.navCta {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  margin-left: 10px;
+  flex: 0 0 auto;
+}
+
+/* Progress bar (top of header) */
+.progressTrack {
+  height: 2px;
+  background: transparent;
+}
+
+.progressBar {
+  height: 2px;
+  width: 0%;
+  background: color-mix(in oklab, var(--fg) 70%, transparent);
+  transition: width 140ms linear;
+}
+
 /* Base pill (used for nav items) */
 .pill {
   display: inline-flex;
@@ -243,6 +278,10 @@ a:hover {
   padding: 46px 0 26px;
 }
 
+.hero--tight {
+  padding-top: 34px;
+}
+
 .kicker {
   color: var(--muted);
   font-weight: 650;
@@ -258,11 +297,44 @@ a:hover {
   margin: 12px 0 14px;
 }
 
+.h1--premium {
+  max-width: 18ch;
+}
+
 .lede {
   max-width: 72ch;
   color: var(--muted);
   font-size: var(--text-md);
   margin: 0 0 18px;
+}
+
+.lede--tight {
+  max-width: 62ch;
+  margin-bottom: 12px;
+}
+
+.heroSubline {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.35;
+}
+
+.heroSubline .sep {
+  opacity: 0.55;
+}
+
+.heroSubline .dot {
+  white-space: nowrap;
+}
+
+.heroActions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 12px;
 }
 
 .section {
@@ -288,6 +360,151 @@ a:hover {
 }
 
 /* ---------------------------------------------
+   Layout helpers
+--------------------------------------------- */
+
+.divider {
+  margin: 18px 0;
+  border-top: 1px solid var(--line);
+  opacity: 0.85;
+}
+
+.grid2 {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+  margin-top: 14px;
+}
+
+.grid3 {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+  margin-top: 14px;
+}
+
+/* Hero layout */
+.heroGrid {
+  display: grid;
+  gap: 22px;
+  align-items: start;
+  margin-top: 10px;
+}
+
+.heroGrid--premium {
+  grid-template-columns: 1.18fr 0.82fr;
+}
+
+/* ---- Hero refresh: remove "dashboard" feel ---- */
+
+/* Calmer proof block (replaces metric cards) */
+.proof {
+  margin-top: 18px;
+  display: grid;
+  gap: 12px;
+  max-width: 70ch;
+}
+
+.proofItem {
+  padding-left: 14px;
+  border-left: 1px solid color-mix(in oklab, var(--fg) 14%, var(--line));
+}
+
+.proofTitle {
+  font-size: var(--text-xs);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  font-weight: 650;
+}
+
+.proofDetail {
+  margin-top: 6px;
+  color: var(--muted);
+  font-size: var(--text-base);
+  line-height: 1.55;
+}
+
+/* Editorial portrait (less “profile widget”) */
+.heroAside {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.portraitFigure {
+  width: min(380px, 100%);
+  margin: 0;
+}
+
+.portraitFrame {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow-sm);
+  background: color-mix(in oklab, var(--surface) 86%, transparent);
+}
+
+.portraitCaption {
+  margin-top: 10px;
+  display: grid;
+  gap: 4px;
+}
+
+.portraitNameLine {
+  font-weight: 650;
+  letter-spacing: -0.02em;
+}
+
+.portraitEmail {
+  color: var(--muted);
+  font-size: var(--text-sm);
+}
+
+.portraitEmail:hover {
+  text-decoration: underline;
+}
+
+/* Timeline */
+.timeline {
+  display: grid;
+  gap: 12px;
+  margin-top: 14px;
+}
+
+.timelineItem {
+  display: grid;
+  gap: 10px;
+}
+
+.timelineMeta {
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted);
+  font-weight: 650;
+}
+
+.timelineBody {
+  color: var(--muted);
+  font-size: 14px;
+}
+
+/* Contact helpers */
+.contactRow {
+  margin-top: 12px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.contactSpacer {
+  height: 12px;
+}
+
+/* ---------------------------------------------
    Cards + lists
 --------------------------------------------- */
 
@@ -304,8 +521,10 @@ a:hover {
 }
 
 .card:hover {
-  border-color: color-mix(in oklab, var(--fg) 16%, var(--line));
-  box-shadow: var(--shadow);
+  /* Quieter hover for "premium" */
+  border-color: color-mix(in oklab, var(--fg) 14%, var(--line));
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-sm);
 }
 
 .list {
@@ -331,12 +550,51 @@ a:hover {
 }
 
 /* ---------------------------------------------
+   Reveal motion (global)
+--------------------------------------------- */
+
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(10px);
+  filter: blur(6px);
+  transition:
+    opacity 700ms var(--ease),
+    transform 700ms var(--ease),
+    filter 900ms var(--ease);
+  transition-delay: var(--d, 0ms);
+  will-change: opacity, transform, filter;
+}
+
+[data-reveal].is-visible {
+  opacity: 1;
+  transform: translateY(0);
+  filter: blur(0);
+}
+
+/* ---------------------------------------------
    Premium spacing + responsive refinement
 --------------------------------------------- */
 
 @media (max-width: 900px) {
   :root {
     --header-offset: 110px;
+  }
+
+  .heroGrid--premium {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .heroAside {
+    justify-content: flex-start;
+  }
+
+  .grid3 {
+    grid-template-columns: 1fr;
+  }
+
+  .grid2 {
+    grid-template-columns: 1fr;
   }
 }
 
@@ -372,5 +630,15 @@ a:hover {
     transition: none !important;
     animation: none !important;
     scroll-behavior: auto !important;
+  }
+
+  [data-reveal] {
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+  }
+
+  .progressBar {
+    transition: none !important;
   }
 }
