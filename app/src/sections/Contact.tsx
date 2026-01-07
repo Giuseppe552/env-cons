@@ -17,10 +17,10 @@ export default function Contact({
     <Section
       id="contact"
       title="Enquiries"
-      subtitle="Send a quick message with whatever you have. If it’s easier, start with one sentence — we can clarify the rest together."
+      subtitle="Please share a brief outline of your requirements. If convenient, a single sentence is sufficient to begin."
     >
       <div className="contactStage">
-        {/* Soft, non-demanding reassurance + simple options */}
+        {/* Clear, professional guidance + simple options */}
         <div style={{ paddingBottom: 16 }}>
           <div
             style={{
@@ -33,7 +33,7 @@ export default function Contact({
             }}
           >
             <div style={{ color: "var(--muted)", fontSize: 14, lineHeight: 1.55 }}>
-              Email is easiest for context and attachments. Telephone is fine for quick questions.
+              Email is recommended for context and attachments. Telephone is suitable for brief initial queries.
             </div>
 
             <div
@@ -45,9 +45,9 @@ export default function Contact({
                 marginTop: 2
               }}
             >
-              <div className="contactChip">“Can you help with this?”</div>
-              <div className="contactChip">“I’m not sure what I need yet.”</div>
-              <div className="contactChip">Attach photos / documents if useful</div>
+              <div className="contactChip">“Request for advice on risk assessment”</div>
+              <div className="contactChip">“Workplace inspection / audit enquiry”</div>
+              <div className="contactChip">Attach documents or photographs if relevant</div>
             </div>
           </div>
         </div>
@@ -56,8 +56,8 @@ export default function Contact({
           <Reveal delayMs={90}>
             <Card className="contactCard contactCard--cta">
               <div className="contactCardHead">
-                <div className="contactCardTitle">Get in touch</div>
-                <div className="contactCardNote">No forms. No structure required. Just reach out.</div>
+                <div className="contactCardTitle">Contact details</div>
+                <div className="contactCardNote">Direct contact. No forms.</div>
               </div>
 
               <div className="contactFields" aria-label="Contact details">
@@ -82,8 +82,8 @@ export default function Contact({
               </div>
 
               <div className="contactFine">
-                If you’re unsure what to include, just describe the situation in plain language. If you have documents,
-                attach them — but it’s optional.
+                For efficient triage, please include your location, the nature of the issue, and any relevant time
+                constraints. Supporting documents may be attached where appropriate.
               </div>
             </Card>
           </Reveal>
@@ -91,8 +91,8 @@ export default function Contact({
           <Reveal delayMs={170}>
             <Card className="contactCard contactCard--soft">
               <div className="contactCardHead">
-                <div className="contactCardTitle">Optional prompts</div>
-                <div className="contactCardNote">Only if helpful — you can ignore all of this.</div>
+                <div className="contactCardTitle">Optional guidance</div>
+                <div className="contactCardNote">Use as needed.</div>
               </div>
 
               <div
@@ -101,7 +101,7 @@ export default function Contact({
                   gap: 10,
                   marginTop: 6
                 }}
-                aria-label="Optional prompts"
+                aria-label="Optional guidance"
               >
                 <div
                   style={{
@@ -111,10 +111,10 @@ export default function Contact({
                     background: "color-mix(in oklab, var(--surface) 90%, transparent)"
                   }}
                 >
-                  <div style={{ fontWeight: 650, letterSpacing: "-0.02em" }}>A simple starting message</div>
+                  <div style={{ fontWeight: 650, letterSpacing: "-0.02em" }}>Suggested email opener</div>
                   <div style={{ marginTop: 6, color: "var(--muted)", fontSize: 14, lineHeight: 1.55 }}>
-                    “Hi Dr Hrymak — I’m looking for advice on workplace safety / risk assessment. We’re based in [location].
-                    Could we discuss options?”
+                    “Dear Dr Hrymak — I am seeking advice regarding workplace safety and risk assessment. We are based in
+                    [location]. Please advise on available options and next steps.”
                   </div>
                 </div>
 
@@ -125,8 +125,8 @@ export default function Contact({
                     lineHeight: 1.55
                   }}
                 >
-                  If you want to add a little more, the most useful details tend to be: where it is, what the issue is,
-                  and any timing constraints. But don’t worry if you don’t have that yet.
+                  Where possible, please include: (1) site type and location, (2) a short description of the matter, and
+                  (3) any deadlines or operational constraints.
                 </div>
               </div>
             </Card>
