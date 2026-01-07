@@ -299,7 +299,7 @@ export default function Hero({
 
           <Reveal delayMs={120}>
             <p className="lede lede--tight" style={centerStyle}>
-              Programme leadership, regulatory enforcement experience, and workplace safety research—applied to practical
+              Programme leadership, regulatory enforcement experience, and workplace safety research — applied to practical
               advisory work.
             </p>
           </Reveal>
